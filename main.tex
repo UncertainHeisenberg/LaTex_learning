@@ -1,10 +1,11 @@
 \documentclass[UTF8]{ctexart}
 
+\usepackage{txfonts}
 \usepackage{graphicx}
 % 示例
 \usepackage[greek, english]{babel}
 
-% \graphicspath{{figures/}}
+% \grapicspath{{figures/}}
 
 \title{《\LaTeX\ 入门》读书笔记}
 \author{邓思彤}
@@ -32,7 +33,7 @@
                 \item 特殊字符输入 ( 包括各种语言的字母及特殊字符 )
                 \begin{itemize}
                     \item 直接 UTF-8 编码输入. ( 需要系统字体的输入和 \TeX\ 系统输出的显示支持 )
-                    \item 特殊标记法如: 重音标记, 以及其他字母合成, 以及部分命令. 如图 \ref{fig:zhongyin}, 图 \ref{fig:teshu} 和图 \ref{fig:teshufuhao}. 
+                    \item 特殊标记法如: 重音标记, 以及其他字母合成. 如图 \ref{fig:zhongyin} 和图 \ref{fig:teshu}。
                     \item 使用宏包 ( 通过 ASCII 码或 UTF-8 码 ), 如: babel, inputenc, fontenc\dots. 
 
                     \begin{itemize}
@@ -53,12 +54,6 @@
                     \caption{\LaTeX\ 中的特殊字母}
                     \label{fig:teshu}
                 \end{figure}
-                \begin{figure}[ht]
-                    \centering
-                    \includegraphics[width=9cm]{figures/teshufuhao.PNG}
-                    \caption{\LaTeX\ 中的特殊符号}
-                    \label{fig:teshufuhao}
-                \end{figure}
 
                 \item 字符输出连写. 
                 \begin{itemize}
@@ -67,6 +62,66 @@
                 \end{itemize}
 
             \end{enumerate}
+
+        \subsubsection{字体变化}
+
+            这包括\emph{字体族}、\emph{字体形状}、\emph{字体系列}\emph{字体编码}、\emph{字号} (常常独立出来)。
+
+            \begin{enumerate}
+                \item 字体族对于一组风格类似，适于一起使用的成套字体，有：
+
+                \begin{tabular}{llll}
+                    字体族 & 带参数命令 & 声明命令 & 效果 \\
+                    罗马（默认） & \textbackslash textrm & \textbackslash rmfamily & \textrm{Roman font family} \\
+                    无衬线 & \textbackslash textsf & \textbackslash sffamily & \textsf{Sans serif font family} \\
+                    打字机 & \textbackslash texttt & \textbackslash ttfamily & \texttt{Typewriter font family} \\
+                \end{tabular}
+
+                \item 字体形状针对于一字体族，有：
+
+                \begin{tabular}{llll}
+                    字体形状 & 带参数命令 & 声明命令 & 效果 \\
+                    直立（默认）& \textbackslash textup & \textbackslash upshape & \textup{Upright shape} \\
+                    意大利 & \textbackslash textit & \textbackslash itshape & \textit{italic shape} \\
+                    倾斜 & \textbackslash textsl & \textbackslash slshape & \textsl{Slanted shape} \\
+                    小型大写 & \textbackslash textsc & \textbackslash scshape & \textsc{small capitals shape} \\
+                \end{tabular}
+
+                \item 字体系列针对于字体的粗细程度，有：
+
+                \begin{tabular}{llll}
+                    字体系列 & 带参数命令 & 声明命令 & 效果 \\
+                    中等（默认） & \textbackslash textmd\{$<$文字$>$\} & \textbackslash mdseries & \textmd{Medium series} \\
+                    加宽加粗 & \textbackslash textbf\{$<$文字$>$\} & \textbackslash bfseries & \textbf{Bold extended series} \\
+                \end{tabular}
+
+            \end{enumerate}
+
+            以上三种字体性质可以相互叠加，但同一纬度中不可重叠。此外，还有诸如 \textbackslash textnormal 或 \textbackslash normalfont 来把字体设置为 “普通” 的格式（默认为：\textbackslash rmfamily\textbackslash mdseries\textbackslash upshape 的效果）
+
+            对于中文，一般没有多种形状，常以字体族区分。\\其使用：
+
+            \begin{enumerate}
+                \item 使用宏包 CJK ：命令 \textbackslash CJKfamily\{$<$hei/kai/li/you$>$\}。
+                \item ctex 宏包中有预定义命令如：\textbackslash songti\quad \textbackslash heiti\quad \textbackslash fangsong\quad \textbackslash kaishu 等……
+                \item 此外 ctex 宏包及其文档类重定义了上面的字体命令，这使得：
+                \begin{description}
+                    \item[宋体] \textbackslash rmfamily
+                    \item[楷体] \textbackslash itshape
+                    \item[黑体] \textbackslash dfseries
+                    \item[幼圆] \textbackslash sffamily
+                    \item[斜体] \textbackslash ttfamily  
+                \end{description}
+                带参数命令也有效。
+            \end{enumerate}
+
+            NFSS ( New Font Selection Scheme) 为字体划分了编码、族、系列、形状、尺寸等多个正交属性，各自可以用一个简短的符号来表示，如：\\
+            字体编码有 OT1, T1, OML, OMS, OMX, U等；字体族有 cmr, cmss, cmtt, cmm, cmsy, cmex 等；字体类型有 m, b, bx, sb, c 等；
+            
+            可以使用更原始的命令：\\
+            \textbackslash fontencoding\{\}\quad \textbackslash fontfamily\{\}\quad \textbackslash fontseries\{\}\quad \textbackslash fontshape\{\}\quad \textbackslash fontsize\{\}\{\}\quad \\
+            并添加 \textbackslash selectfont 使其生效。\\
+            也可以使用 \paragraph{\textbackslash usefont\{编码\}\{族\}\{系列\}\{形状\}}
 
         \subsubsection{标点符号}
 
@@ -115,6 +170,7 @@
                     \item 空格起分隔单词作用, 多空格作用同单个空格等效. 
                     \item 以字母命名的宏, 其后空格会被忽略. 
                     \item 空分组 \{\} 与 \textbackslash 空格 亦可作空格 ( 且后者不可被省去 )
+                    \item \textbackslash/ 作为小空格（单词之间间隔），一般用于取消字母连写或倾斜字体与普通之间的相交。
                     \item 汉字与其他内容间自动产生空格 ( 可放入盒子取消其影响---\textbackslash \{\} )
                     \item $\sim$ ---带子, 可作为不可打断的空格, 连接作用. 
                 \end{itemize}
@@ -138,6 +194,21 @@
                 \end{itemize}
 
             \end{enumerate}
+
+        \subsubsection{特殊符号}
+
+            \begin{enumerate}
+                \item 同字体命令一样，直接使用 UTF-8 格式输入输出。
+                \item 使用宏包
+                \item 使用宏，如图 \ref{fig:teshufuhao} 。
+            \end{enumerate}
+
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=9cm]{figures/teshufuhao.PNG}
+                \caption{\LaTeX\ 中的特殊符号}
+                \label{fig:teshufuhao}
+            \end{figure}
 
     \subsection{段落与文本环境}
 
